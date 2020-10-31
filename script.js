@@ -18,7 +18,7 @@ var database = firebase.database().ref();
 // var friendsVideo = document.getElementById("friendsVideo");
 var yourId = Math.floor(Math.random()*1000000000);
 //Create an account on Viagenie (http://numb.viagenie.ca/), and replace {'urls': 'turn:numb.viagenie.ca','credential': 'websitebeaver','username': 'websitebeaver@email.com'} with the information from your account
-var servers = {'iceServers': [{'urls': 'stun:stun.services.mozilla.com'}, {'urls': 'stun:stun.l.google.com:19302'}, {'urls': 'turn:numb.viagenie.ca','credential': 'beaver','username': 'webrtc.websitebeaver@gmail.com'}]};
+var servers = {'iceServers': [{'urls': 'stun:stun.services.mozilla.com'}, {'urls': 'stun:stun.l.google.com:19302'}, {'urls': 'turn:13.250.13.83:3478?transport=udp','credential': 'YzYNCouZM1mhqhmseWk6','username': 'YzYNCouZM1mhqhmseWk6'}]};
 var pc = new RTCPeerConnection(servers);
 pc.onicecandidate = (event => event.candidate?sendMessage(yourId, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 pc.onaddstream = (event => partnerAudio.srcObject = event.stream);
@@ -68,5 +68,11 @@ function stopStreamedAudio() {
     track.stop();
   });
 
-  partnerAudio.srcObject = null;
+  // partnerAudio.srcObject = null;
+}
+function mute(){
+	// audio1.srcObject.getTracks().forEach(t => t.enabled = !t.enabled);
+	// partnerAudio.srcObject.getTracks().forEach(t => t.muted = !t.muted);
+	audio1.srcObject.getTracks()[0].stop();
+	
 }
