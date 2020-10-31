@@ -59,3 +59,14 @@ function showFriendsFace() {
     .then(offer => pc.setLocalDescription(offer) )
     .then(() => sendMessage(yourId, JSON.stringify({'sdp': pc.localDescription})) );
 }
+
+function stopStreamedAudio() {
+  const stream = partnerAudio.srcObject;
+  const tracks = stream.getTracks();
+
+  tracks.forEach(function(track) {
+    track.stop();
+  });
+
+  partnerAudio.srcObject = null;
+}
