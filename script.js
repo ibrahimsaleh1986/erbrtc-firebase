@@ -18,7 +18,20 @@ var database = firebase.database().ref();
 // var friendsVideo = document.getElementById("friendsVideo");
 var yourId = Math.floor(Math.random()*1000000000);
 //Create an account on Viagenie (http://numb.viagenie.ca/), and replace {'urls': 'turn:numb.viagenie.ca','credential': 'websitebeaver','username': 'websitebeaver@email.com'} with the information from your account
-var servers = {'iceServers': [{'urls': 'stun:stun.services.mozilla.com'}, {'urls': 'stun:stun.l.google.com:19302'}, {'urls': 'turn:numb.viagenie.ca','credential': 'beaver','username': 'webrtc.websitebeaver@gmail.com'}]};
+var servers = {iceServers: [{
+   urls: [ "stun:bn-turn1.xirsys.com" ]
+}, {
+   username: "4YZ55YVDuwcyQ9eBVVfFPUIXleT0R_Q-V-MmSugmX0NqHNaPrgNaRtY3dJXq51WzAAAAAF-eg9Bpc2FsZWg=",
+   credential: "07d3299e-1c27-11eb-8f9c-0242ac140004",
+   urls: [
+       "turn:bn-turn1.xirsys.com:80?transport=udp",
+       "turn:bn-turn1.xirsys.com:3478?transport=udp",
+       "turn:bn-turn1.xirsys.com:80?transport=tcp",
+       "turn:bn-turn1.xirsys.com:3478?transport=tcp",
+       "turns:bn-turn1.xirsys.com:443?transport=tcp",
+       "turns:bn-turn1.xirsys.com:5349?transport=tcp"
+   ]
+}]};
 var pc = new RTCPeerConnection(servers);
 pc.onicecandidate = (event => event.candidate?sendMessage(yourId, JSON.stringify({'ice': event.candidate})):console.log("Sent All Ice") );
 pc.onaddstream = (event => partnerAudio.srcObject = event.stream);
@@ -59,7 +72,9 @@ function showFriendsFace() {
     .then(offer => pc.setLocalDescription(offer) )
     .then(() => sendMessage(yourId, JSON.stringify({'sdp': pc.localDescription})) );
 }
-
+function stopStreamedAudio() {
+	audio1.srcObject.getTracks()[0].stop();
+}
 // function stopStreamedAudio() {
   // const stream = partnerAudio.srcObject;
   // const tracks = stream.getTracks();
@@ -70,9 +85,9 @@ function showFriendsFace() {
 
   // // partnerAudio.srcObject = null;
 // }
-// function mute(){
-	// // audio1.srcObject.getTracks().forEach(t => t.enabled = !t.enabled);
-	// // partnerAudio.srcObject.getTracks().forEach(t => t.muted = !t.muted);
-	// audio1.srcObject.getTracks()[0].stop();
+// // function mute(){
+	// // // audio1.srcObject.getTracks().forEach(t => t.enabled = !t.enabled);
+	// // // partnerAudio.srcObject.getTracks().forEach(t => t.muted = !t.muted);
+	// // audio1.srcObject.getTracks()[0].stop();
 	
-// }
+// // }
