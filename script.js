@@ -72,19 +72,19 @@ function showFriendsFace() {
     .then(offer => pc.setLocalDescription(offer) )
     .then(() => sendMessage(yourId, JSON.stringify({'sdp': pc.localDescription})) );
 }
-function stopStreamedAudio() {
-	audio1.srcObject.getTracks()[0].stop();
-}
 // function stopStreamedAudio() {
-  // const stream = partnerAudio.srcObject;
-  // const tracks = stream.getTracks();
-
-  // tracks.forEach(function(track) {
-    // track.stop();
-  // });
-
-  // // partnerAudio.srcObject = null;
+	// audio1.srcObject.getTracks()[0].stop();
 // }
+function stopstreamedaudio() {
+ const stream = partneraudio.srcobject;
+ const tracks = stream.gettracks();
+
+ tracks.foreach(function(track) {
+ track.stop();
+ });
+
+  // // // partneraudio.srcobject = null;
+ }
 // // function mute(){
 	// // // audio1.srcObject.getTracks().forEach(t => t.enabled = !t.enabled);
 	// // // partnerAudio.srcObject.getTracks().forEach(t => t.muted = !t.muted);
